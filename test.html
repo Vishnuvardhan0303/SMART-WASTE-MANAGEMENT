@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+</head>
+<body>
+    <h1>Test Login</h1>
+    <form id="testForm">
+        <input type="text" id="username" placeholder="Username"><br><br>
+        <input type="password" id="password" placeholder="Password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        // Initialize test user in localStorage
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify([
+                {
+                    username: "Admin",
+                    password: "admin123",
+                    email: "admin@example.com"
+                }
+            ]));
+        }
+
+        document.getElementById('testForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                // Simple login check
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    document.getElementById('result').textContent = 'Login successful!';
+                    document.getElementById('result').style.color = 'green';
+                } else {
+                    document.getElementById('result').textContent = 'Invalid credentials';
+                    document.getElementById('result').style.color = 'red';
+                }
+            } catch (error) {
+                document.getElementById('result').textContent = error.message;
+                document.getElementById('result').style.color = 'red';
+            }
+        };
+    </script>
+</body>
+</html> 

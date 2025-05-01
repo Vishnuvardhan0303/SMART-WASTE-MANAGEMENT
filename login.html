@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EcoSmart Bins</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="images/logo.svg">
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .login-footer p {
+            margin: 0.5rem 0;
+        }
+
+        .requirements {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+            padding-left: 3rem;
+        }
+
+        .requirements ul {
+            margin: 0.5rem 0;
+            padding-left: 1.2rem;
+        }
+
+        .requirements li {
+            margin: 0.2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="site-branding" style="justify-content: center">
+                    <div class="logo-container">
+                        <img src="images/logo.svg" alt="EcoSmart Bins Logo">
+                    </div>
+                    <div class="title-container" style="text-align: center">
+                        <h1 class="site-title">EcoSmart Bins</h1>
+                        <p class="site-subtitle">Somandepalli Smart Waste Management</p>
+                    </div>
+                </div>
+            </div>
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <div class="input-group">
+                    <i class="material-icons">person</i>
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="requirements">
+                    Username must contain at least one capital letter
+                </div>
+                <div class="input-group">
+                    <i class="material-icons">lock</i>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="requirements">
+                    Password requirements:
+                    <ul>
+                        <li>Must contain both letters and numbers</li>
+                        <li>Example: Admin/User123</li>
+                    </ul>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <button type="submit">
+                    <i class="material-icons">login</i>
+                    Login
+                </button>
+                <p id="error-message" class="error-message"></p>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+                <p>Contact administrator for access</p>
+                <p>© 2024 Somandepalli Municipality</p>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html> 

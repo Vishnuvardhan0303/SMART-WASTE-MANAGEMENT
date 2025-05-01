@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Bins - EcoSmart Bins</title>
+    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles/manage-bins.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="site-branding">
+                <div class="logo-container">
+                    <img src="images/logo.svg" alt="EcoSmart Bins Logo">
+                </div>
+                <div class="title-container">
+                    <h1 class="site-title">EcoSmart Bins</h1>
+                    <p class="site-subtitle">Somandepalli Smart Waste Management</p>
+                </div>
+            </div>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="material-icons">map</i>
+                    View Map
+                </a>
+                <h1><i class="material-icons">delete</i> Manage Smart Bins</h1>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <i class="material-icons">logout</i>
+                    Logout
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <!-- Add New Bin Form -->
+                <section class="form-section">
+                    <h2><i class="material-icons">add_circle</i> Add New Bin</h2>
+                    <form id="addBinForm" onsubmit="return handleAddBin(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="location">Location Name:</label>
+                                <input type="text" id="location" required placeholder="e.g., Somandepalli Main Center">
+                            </div>
+                            <div class="form-group">
+                                <label for="binType">Bin Type:</label>
+                                <select id="binType" required>
+                                    <option value="general">General Waste</option>
+                                    <option value="recyclable">Recyclable</option>
+                                    <option value="organic">Organic Waste</option>
+                                    <option value="hazardous">Hazardous Waste</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="latitude">Latitude:</label>
+                                <input type="number" id="latitude" step="0.0001" required placeholder="e.g., 14.4673">
+                            </div>
+                            <div class="form-group">
+                                <label for="longitude">Longitude:</label>
+                                <input type="number" id="longitude" step="0.0001" required placeholder="e.g., 77.7831">
+                            </div>
+                            <div class="form-group">
+                                <label for="capacity">Capacity (liters):</label>
+                                <input type="number" id="capacity" required placeholder="e.g., 100">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <button type="submit" class="primary-button">
+                                <i class="material-icons">add</i>
+                                Add Bin
+                            </button>
+                            <button type="button" class="secondary-button" onclick="getLocation()">
+                                <i class="material-icons">my_location</i>
+                                Use Current Location
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Existing Bins Table -->
+                <section class="table-section">
+                    <h2><i class="material-icons">list</i> Existing Bins</h2>
+                    <div class="table-controls">
+                        <div class="search-box">
+                            <i class="material-icons">search</i>
+                            <input type="text" id="searchBins" placeholder="Search bins...">
+                        </div>
+                        <div class="filter-box">
+                            <label for="statusFilter">Filter by Status:</label>
+                            <select id="statusFilter" onchange="filterBins()">
+                                <option value="ALL">All Status</option>
+                                <option value="NORMAL">Normal</option>
+                                <option value="WARNING">Warning</option>
+                                <option value="CRITICAL">Critical</option>
+                                <option value="MAINTENANCE_NEEDED">Maintenance Needed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="binsTable">
+                            <thead>
+                                <tr>
+                                    <th>Location</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Fill Level</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="binsTableBody">
+                                <!-- Bins will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Bin Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="material-icons">edit</i> Edit Bin</h2>
+                <button onclick="closeModal()" class="close-button">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <form id="editBinForm" onsubmit="return handleEditBin(event)">
+                <input type="hidden" id="editBinId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editLocation">Location Name:</label>
+                        <input type="text" id="editLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBinType">Bin Type:</label>
+                        <select id="editBinType" required>
+                            <option value="general">General Waste</option>
+                            <option value="recyclable">Recyclable</option>
+                            <option value="organic">Organic Waste</option>
+                            <option value="hazardous">Hazardous Waste</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editLatitude">Latitude:</label>
+                        <input type="number" id="editLatitude" step="0.0001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLongitude">Longitude:</label>
+                        <input type="number" id="editLongitude" step="0.0001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCapacity">Capacity (liters):</label>
+                        <input type="number" id="editCapacity" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="primary-button">
+                        <i class="material-icons">save</i>
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts/manage-bins.js"></script>
+</body>
+</html> 

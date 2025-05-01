@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSmart Bins - Somandepalli Smart Waste Management</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="images/logo.svg">
+    <!-- Styles -->
+    <link href="styles/main.css" rel="stylesheet">
+    <link href="images/bin-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="site-branding">
+                <div class="logo-container">
+                    <img src="images/logo.svg" alt="EcoSmart Bins Logo">
+                </div>
+                <div class="title-container">
+                    <h1 class="site-title">EcoSmart Bins</h1>
+                    <p class="site-subtitle">Somandepalli Smart Waste Management</p>
+                </div>
+                <div class="user-controls">
+                    <span id="username-display"></span>
+                    <button onclick="logout()" class="logout-button">
+                        <i class="material-icons">logout</i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <button onclick="filterMarkers('ALL')" class="active">
+                    <i class="material-icons">all_inbox</i> All Bins
+                </button>
+                <button onclick="filterMarkers('NORMAL')">
+                    <div class="bin-icon normal"></div> Normal
+                </button>
+                <button onclick="filterMarkers('WARNING')">
+                    <div class="bin-icon warning"></div> Warning
+                </button>
+                <button onclick="filterMarkers('CRITICAL')">
+                    <div class="bin-icon critical"></div> Critical
+                </button>
+                <button onclick="filterMarkers('MAINTENANCE_NEEDED')">
+                    <div class="bin-icon maintenance"></div> Maintenance
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class="material-icons">inventory_2</i>
+                        <h3>Total Bins</h3>
+                        <p id="total-bins">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="material-icons">error</i>
+                        <h3>Critical Bins</h3>
+                        <p id="critical-bins">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="material-icons">warning</i>
+                        <h3>Warning Bins</h3>
+                        <p id="warning-bins">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="material-icons">build</i>
+                        <h3>Maintenance Needed</h3>
+                        <p id="maintenance-bins">0</p>
+                    </div>
+                </div>
+                <div id="map"></div>
+            </div>
+            <div id="bin-details" class="details-panel">
+                <!-- Bin details will be populated here -->
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/map.js"></script>
+    <script src="scripts/stats.js"></script>
+    <script>
+        // Display username
+        document.getElementById('username-display').textContent = getCurrentUser();
+    </script>
+</body>
+</html> 
